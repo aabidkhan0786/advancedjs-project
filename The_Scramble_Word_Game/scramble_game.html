@@ -1,0 +1,140 @@
+<html>
+<head>
+<style>
+ body{
+	background-image:url("18-02-00-images.jpg");
+	background-repeat:no repeat;
+	background-position: center;
+	background-size:cover;
+}
+.n1{
+	padding:10px;
+	background-color:rgba(0,0,0,0.5);
+	box-shadow: 2px 2px 5px black;
+	border-radius: 20px;
+		}
+.a1{
+	font-size:30px;
+	color: white;
+	text-align:center;
+	text-decoration:underline;
+	margin:10px;
+
+}
+.area{
+	margin-top:60px;
+	background-color:rgba(0,0,0,0.5);
+	box-shadow: 2px 2px 5px black;
+	border-radius: 20px;
+	
+	
+		}
+input[type="text"]{
+	 text-align:center;
+	 margin-top:100px;
+	 outline:none;
+	 width:300px;
+	 height:40px;
+	 border-radius:30px;
+	 font-size:20px;
+	 font-align:center;
+	 background-color:aliceblue;
+	
+	 }
+.btn{
+		margin-top:40px;
+		width:250px;
+		height:35px;
+		color:black;
+		font-size:20px;
+		outline:none;
+		box-shadow: 2px 2px 5px black;		
+		border-radius: 20px;
+		}
+.msg{
+color:white;
+}
+
+.hidden{
+	display:none;
+
+
+} 	 
+</style>
+</head>
+
+<body><center> <div class="n1" , style=" width:40%;height:40px; border: solid; position:center;">
+<p class="a1">WELCOME TO THE WORD GAME</p>
+</div></center>
+<center>
+<div class="area", style=" width:50%;height:450px; border: solid; position:center;">>
+<h1 class="msg"></h2>
+<input type="text" placeholder="Enter your Answer" class="hidden"></input><br><br>
+<button type="submit" class="btn">LET'S START !!</button>
+
+</div></center>
+<script>
+	const msg = document.querySelector('.msg');
+	const guess = document.querySelector('input');
+	const btn = document.querySelector('.btn');
+	let realWord='';
+	let srcWord='';
+	let play=false;
+	let words=['mango','guava','apple','grapes','banana','pineapple',"cheese","elephant","lion","tiger","monkey","peacock"];
+	
+	
+	
+	const createWord = () =>{
+		const ranNum= Math.floor(Math.random() * words.length);
+		//console.log(ranNum);
+		let temp= words[ranNum];
+		//console.log(temp.split(""));
+		return temp;
+		
+		}
+	const scramble= (arr) =>{
+	
+		for( let i =arr.length-1;i>0;i--){
+			let a = arr[i];
+			//console.log(a);
+			let j = Math.floor(Math.random()*(i+1));
+			arr[i]=arr[j];
+			arr[j]=a;
+			//console.log(i);
+			//console.log(j);
+	}
+	return arr;
+	}
+	
+	btn.addEventListener('click',function(){
+	if(!play){
+		play=true;
+		btn.innerHTML="GUESS";
+		guess.classList.toggle("hidden");
+		realWord=createWord();
+		srcWord=scramble(realWord.split("")).join("");
+		//console.log(srcWord.join(""));
+		msg.innerHTML=`GUESS THE WORD : ${srcWord}`;
+	}else{
+
+	let ans=guess.value;
+	if(ans === realWord)
+	{
+		//console.log("correct");
+		play=false;
+		msg.innerHTML=`AWESOME.. UH GUESSED RIGHT : ${realWord}`;
+		btn.innerHTML='START AGAIN !!';
+		guess.classList.toggle("hidden");
+		guess.value="";
+	}else{
+		//console.log("incorrect");
+		msg.innerHTML =`SORRY BOSS.. ITS WRONG !! TRY AGAIN: ${srcWord}`;
+		
+	}
+	}
+	})
+
+
+</script>
+</body>
+</html>
